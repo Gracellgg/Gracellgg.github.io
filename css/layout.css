@@ -20,21 +20,29 @@ body {
     color: #606060;
 }
 
+#img-me {
+    border-radius: 80%;
+    width: 80%;
+}
+
+#p-name {
+    font-size: 15pt;
+    margin-bottom: -10pt;
+}
+
 a {
     text-decoration: none;
     color: #B95C50;
 }
 
 svg {
-    width: 1.2em;
-    height: 1.2em;
+    width: 12pt;
+    height: 12pt;
     vertical-align: middle;
-    display: inline-block;
 }
 
 span {
     vertical-align: middle;
-    display: inline-block;
     line-height: 2;
     color: #B95C50;
 }
@@ -63,7 +71,7 @@ span {
 .announcement {
     background-color: #deb3ad40;
     width: 96%;
-    height: 100px;
+    height: auto;
     border-radius: 20px;
     padding-left: 2%;
     padding-right: 2%;
@@ -74,4 +82,39 @@ span {
 
 path {
     fill: #B95C50;
+}
+
+@media only screen and (max-width: 57.8125em), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2) {
+    body {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .sidebar {
+        width: 100%;
+        float: none;
+        font-size: 14pt;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    #img-me {
+        width: 30%;
+    }
+
+    #p-name {
+        font-size: 24pt;
+        margin-bottom: -17pt;
+    }
+
+    span {
+        font-size: 14pt;
+    }
+
+    svg {
+        width: 16.8pt;
+        height: 16.8pt;
+    }
 }
