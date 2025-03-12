@@ -1,4 +1,4 @@
-# Ningzhi Tang's Homepage
+# Gelei Xu's Homepage
 
 This is the homepage of [Gelei Xu](https://gracellgg.github.io/), showcasing my work, projects, and research interests, including selected publications and contact information. Feel free to clone this repository for your personal use.
 
