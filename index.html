@@ -47,13 +47,130 @@
             color: #ea9210;
             /* Sets the color for highlighted text to a brighter soft yellow */
         }
+
+        /* Intro section: photo floats beside the bio text so the block's
+           height follows the text instead of leaving empty space under a
+           narrow photo column. */
+        .intro-block {
+            overflow: hidden;
+        }
+
+        .intro-photo {
+            float: left;
+            width: 200px;
+            margin: 0 28px 16px 0;
+            overflow: hidden;
+        }
+
+        .intro-photo img {
+            display: block;
+            width: 100%;
+            height: auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (max-width: 767.98px) {
+            .intro-photo {
+                float: none;
+                width: 160px;
+                margin: 0 auto 20px;
+            }
+        }
+
+        /* Publication venue + links on one line instead of stacked rows */
+        .pub-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            column-gap: 16px;
+            row-gap: 2px;
+            margin-top: 2px;
+        }
+
+        .pub-meta .pub-links {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+        }
+
+        .pub-meta .pub-links a {
+            white-space: nowrap;
+        }
+
+        /* Paper title links to the PDF, but looks like plain text until hovered */
+        .pub-title-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .pub-title-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar body text (News, Teaching, Service, etc.) reads too light
+           at the theme's default gray; darken it a notch. Leave .fade-text
+           (the past "Attending" entries) alone since it's meant to fade. */
+        .sidebar .p-small:not(.fade-text) {
+            color: #484f5c;
+        }
+
+        /* Same darkening for the left column: bio paragraph and publication
+           author/venue lines were the same light theme gray. */
+        .intro-block > p,
+        .blog .p-condense {
+            color: #484f5c;
+        }
+
+        /* Reviewer list: a small pill label per category, then a plain
+           comma-separated list of venues, instead of one long run-on line. */
+        .reviewer-list p {
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        .reviewer-list p:last-child {
+            margin-bottom: 0;
+        }
+
+        .reviewer-tag {
+            display: inline-block;
+            background: rgba(181, 111, 126, 0.12);
+            color: #b56f7e;
+            font-weight: 700;
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 2px 8px;
+            border-radius: 999px;
+            margin-right: 6px;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        /* Job market callout between the intro and publications */
+        .job-market-box {
+            background: #fdf3e3;
+            border-left: 4px solid #ea9210;
+            border-radius: 6px;
+            padding: 14px 18px;
+        }
+
+        .job-market-box p {
+            color: #6b4a12;
+            margin-bottom: 0;
+        }
+
+        .job-market-box b {
+            color: #ea9210;
+        }
     </style>
 </head>
 
 <body>
 <div class="content-wrapper">
     <section class="wrapper bg-light wrapper-border">
-        <div class="container inner py-4">
+        <div class="container-fluid inner py-4">
             <div class="row gx-lg-8 gx-xl-12 gy-4 gy-lg-0">
                 <div class="col-md-8 align-self-center text-center text-md-start navigation">
                     <h3 class="text-black fs-30 mb-0">Gelei Xu</h3>
@@ -71,7 +188,7 @@
     </section>
 
     <section class="wrapper bg-light">
-        <div class="container py-8 py-md-4">
+        <div class="container-fluid py-8 py-md-4">
             <div class="row gx-lg-8 gx-xl-12">
                 <div class="col-lg-8">
                     <div id="about" class="row">
@@ -80,24 +197,30 @@
                         <!-- ************* Intro ************* -->
                         <!-- ********************************* -->
 
-                        <div class="col-md-2 add-padding">
-                            <figure class="rounded">
-                                <img src="./assets/images/me2.png" alt=""/>
+                        <div class="col-12 add-padding intro-block">
+                            <figure class="rounded intro-photo">
+                                <img src="./assets/images/me2.jpg" alt="Gelei Xu"/>
                             </figure>
-                        </div>
-                        <div class="col-md-10 add-padding">
                             <p>
-                                I am a third year Ph.D. candidate in the Department of Computer Science and Engineering at the
-                                <a href="https://www.nd.edu/">University of Notre Dame</a>, advised by Prof. Yiyu Shi
-                                in the <a href="https://www3.nd.edu/~scl/index.html">SCL Lab</a>. I also work closely with <a href="https://www.cs.emory.edu/~wjin30/">Prof. Wei Jin</a>
-                                at Emory University and <a href="https://engineering.nd.edu/faculty/zhi-zheng/">Prof. Zhi Zheng</a> at Notre Dame.
-                                I received my B.Eng.
-                                degree from the Department of Computer Science and Engineering
+                                I am a fourth year Ph.D. candidate in the Department of Computer Science and Engineering at the
+                                <a href="https://www.nd.edu/">University of Notre Dame</a>, advised by <a href="https://www3.nd.edu/~scl/index.html">Yiyu Shi</a>. 
+                                I received my B.Eng. degree from the Department of Computer Science and Engineering
                                 at the <a href="https://www.sustech.edu.cn/en/">Southern University of Science and
                                 Technology (SUSTech)</a>,
-                                conducting research related to medical image processing under the guidance of
-                                Prof. Jiang Liu</a> at <a href="https://imed-lab.com/">iMED</a>. I am interested in fairness and personalization in <b>AI for
-                           healthcare</b> and <b>on-device learning</b>.
+                                conducting research related to medical image analysis under the guidance of
+                                Jiang Liu at <a href="https://imed-lab.com/">iMED</a>.  
+                                
+                            </p>
+                            <p>
+                                I am currently a visiting graduate student at Weill Cornell Medicine,
+                                hosted by <a href="https://wcm-wanglab.github.io/">Fei Wang</a>, and previously interned at Boston Children's Hospital and Harvard Medical School with <a href="https://maimunamajumder.com/">Maimuna Majumder</a>.
+                                I also work closely with <a href="https://www.cs.emory.edu/~wjin30/">Wei Jin</a>
+                                at Emory University and <a href="https://engineering.nd.edu/faculty/zhi-zheng/">Zhi Zheng</a> at Notre Dame.
+                            </p>
+                            <p>
+                                I develop machine learning algorithms that ensures reliable
+                                performance for specific patient populations through targeted data allocation, adaptation, and evaluation. My current work
+                                extends these methods to continually learning clinical AI and healthcare agents.
                             </p>
                         </div>
 <!--                        <p>-->
@@ -105,10 +228,16 @@
 <!--                            healthcare</b>. I am passionate about exploring the intersection of these areas to develop innovative solutions that can make an-->
 <!--                            impact.-->
 <!--                        </p>-->
-<!--                        <p class="highlighted-text">I am actively seeking research internship opportunities in the-->
-<!--                            industry for-->
-<!--                            Summer 2025. If you know of any suitable opportunities, please feel free to reach out!-->
-<!--                        </p>-->
+                       <!-- <p class="highlighted-text">I am actively seeking research internship opportunities in the
+                           industry for
+                           Summer 2027. If you know of any suitable opportunities, please feel free to reach out!
+                        </p> -->
+
+                        <div class="col-12 add-padding">
+                            <div class="job-market-box">
+                                <p>I am currently on the academic job market. Please feel free to reach out if you know of any suitable opportunities!</p>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -122,7 +251,48 @@
 
                     <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 py-md-2 add-padding">
+                                    <figure class="hover-scale rounded">
+                                        <a href="assets/files/papers/xu_nc26.pdf">
+                                            <img src="assets/images/thumbnails/xu_nc26.png" alt=""/>
+                                        </a>
+                                    </figure>
+                                </div>
+                                <div class="col-md-9 add-padding">
+                                    <h6><a href="assets/files/papers/xu_nc26.pdf" class="pub-title-link">Assessing the Use of Automatic Speech Recognition and Large Language Models for Individuals
+                                        with Language Impairments</a></h6>
+                                    <p class="p-condense"><b>Gelei Xu*</b>, Haoxinran Yu*, Lixuan Wei, Yuxuan Liu, Dancheng Liu, Chenhui Xu, Jiajie Li Ahmed Abbasi, Jinjun Xiong, Xiufan Yu, Zhi Zheng, Yiyu Shi, and Ruiyang Qin</p>
+                                    <div class="p-condense pub-meta">
+                                        <b>Nature Communications</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog classic-view py-md-2">
+                        <div class="card card-body add-margin">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 py-md-2 add-padding">
+                                    <figure class="hover-scale rounded">
+                                        <img src="assets/images/thumbnails/xu_miccai26.png" alt=""/>
+                                    </figure>
+                                </div>
+                                <div class="col-md-9 add-padding">
+                                    <h6>Group-Conditioned Representation Modulation for Fair Skin Disease Diagnosis</h6>
+                                    <p class="p-condense"><b>Gelei Xu*</b>, Haoran Fan* and Yiyu Shi</p>
+                                    <div class="p-condense pub-meta">
+                                        <b>MICCAI 2026 (early accept, 9%)</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog classic-view py-md-2">
+                        <div class="card card-body add-margin">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="assets/files/papers/xu_jbi26.pdf">
@@ -131,17 +301,14 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>A Comprehensive Survey of AI Agents in Healthcare</h6>
+                                    <h6><a href="assets/files/papers/xu_jbi26.pdf" class="pub-title-link">A Comprehensive Survey of AI Agents in Healthcare</a></h6>
                                     <p class="p-condense"><b>Gelei Xu*</b>, Xueyang Li*, Yixiong Chen*, Yuying Duan*, Shuqing Wu*, Alexander Yu*, Ching-Hao Chiu*, Juntong Ni*, Ningzhi Tang, Toby Jia-Jun Li, Alan Yuille, Wei Jin, and Yiyu Shi</p>
-                                    <p class="p-condense"><b>Journal of Biomedical Informatics</b></p>
-                                    <p class="p-condense">
-                                        <a href="assets/files/papers/xu_jbi26.pdf"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                            &nbsp;&nbsp;
-                                        <a href="https://github.com/AgenticHealthAI/Awesome-AI-Agents-for-Healthcare" target="_blank">
-                                        <i class="fa-brands fa-github"></i> Paper List
-                                        </a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>Journal of Biomedical Informatics</b>
+                                        <span class="pub-links">
+                                            <a href="https://github.com/AgenticHealthAI/Awesome-AI-Agents-for-Healthcare" target="_blank"><i class="fa-brands fa-github"></i> Paper List</a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +316,7 @@
 
                     <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="assets/files/papers/xu_media26.pdf">
@@ -158,13 +325,11 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Rethinking Fairness in Medical Imaging: Maximizing Group-Specific Performance with Application to Skin Disease Diagnosis</h6>
+                                    <h6><a href="assets/files/papers/xu_media26.pdf" class="pub-title-link">Rethinking Fairness in Medical Imaging: Maximizing Group-Specific Performance with Application to Skin Disease Diagnosis</a></h6>
                                     <p class="p-condense"><b>Gelei Xu</b>, Yuying Duan, Jun Xia, Ching-Hao Chiu, Michael Lemmon, Wei Jin, and Yiyu Shi</p>
-                                    <p class="p-condense"><b>Medical Image Analysis</b></p>
-                                    <p class="p-condense">
-                                        <a href="assets/files/papers/xu_media26.pdf"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>Medical Image Analysis</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +339,7 @@
 
                      <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="https://arxiv.org/pdf/2506.17787">
@@ -183,21 +348,19 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Incorporating Rather Than Eliminating: Achieving Fairness for Skin Disease Diagnosis Through Group-Specific Experts</h6>
+                                    <h6><a href="https://arxiv.org/pdf/2506.17787" class="pub-title-link">Incorporating Rather Than Eliminating: Achieving Fairness for Skin Disease Diagnosis Through Group-Specific Experts</a></h6>
                                     <p class="p-condense"><b>Gelei Xu</b>, Yuying Duan, Zheyuan Liu, Xueyang Li, Meng Jiang, Michael Lemmon, Wei jin, and Yiyu Shi</p>
-                                    <p class="p-condense"><b>MICCAI 2025 (early accept, 9%)</b></p>
-                                    <p class="p-condense">
-                                        <a href="https://arxiv.org/pdf/2506.17787"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>MICCAI 2025 (early accept, 9%)</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="blog classic-view py-md-2">
+                    <!-- <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="https://arxiv.org/pdf/2503.22762">
@@ -206,21 +369,19 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>The Cost of Local and Global Fairness in Federated Learning</h6>
+                                    <h6><a href="https://arxiv.org/pdf/2503.22762" class="pub-title-link">The Cost of Local and Global Fairness in Federated Learning</a></h6>
                                     <p class="p-condense">Yuying Duan, <b>Gelei Xu</b>, Yiyu Shi, and Michael Lemmon</p>
-                                    <p class="p-condense"><b>AISTATS 2025</b></p>
-                                    <p class="p-condense">
-                                        <a href="https://arxiv.org/pdf/2503.22762"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>AISTATS 2025</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="https://arxiv.org/pdf/2405.16113">
@@ -229,21 +390,19 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Enabling Memory-Efficient On-Device Learning via Dataset Condensation</h6>
+                                    <h6><a href="https://arxiv.org/pdf/2405.16113" class="pub-title-link">Enabling Memory-Efficient On-Device Learning via Dataset Condensation</a></h6>
                                     <p class="p-condense"><b>Gelei Xu</b>, Ningzhi Tang, Jun Xia, Ruiyang Qin, Wei Jin, and Yiyu Shi</p>
-                                    <p class="p-condense"><b>DATE 2025</b></p>
-                                    <p class="p-condense">
-                                        <a href="https://arxiv.org/pdf/2405.16113"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>DATE 2025</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="blog classic-view py-md-2">
+                    <!-- <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="https://arxiv.org/pdf/2407.15252">
@@ -252,21 +411,19 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>An Adaptive System for Wearable Devices to Detect Stress Using Physiological Signals</h6>
+                                    <h6><a href="https://arxiv.org/pdf/2407.15252" class="pub-title-link">An Adaptive System for Wearable Devices to Detect Stress Using Physiological Signals</a></h6>
                                     <p class="p-condense"><b>Gelei Xu</b>, Ruiyang Qin, Zhi Zheng, and Yiyu Shi</p>
-                                    <p class="p-condense"><b>PhysioCHI 2024</b></p>
-                                    <p class="p-condense">
-                                        <a href="https://arxiv.org/pdf/2407.15252"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>PhysioCHI 2024</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="blog classic-view py-md-2">
+                    <!-- <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="assets/files/papers/xu_arxiv23.pdf">
@@ -275,22 +432,21 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Achieving Fairness in Dermatological Disease Diagnosis through Automatic Weight
-                                        Adjusting Federated Learning and Personalization</h6>
+                                    <h6><a href="assets/files/papers/xu_arxiv23.pdf" class="pub-title-link">Achieving Fairness in Dermatological Disease Diagnosis through Automatic Weight
+                                        Adjusting Federated Learning and Personalization</a></h6>
                                     <p class="p-condense"><b>Gelei Xu</b>, Yawen Wu, Zhenge Jia, Jingtong Hu, and Yiyu Shi</p>
-                                    <p class="p-condense"><b>MICCAI 2025 workshop</b></p>
-                                    <p class="p-condense">
-                                        <a href="assets/files/papers/xu_arxiv23.pdf"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>MICCAI 2025 workshop</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
+                    <!--
                     <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="assets/files/papers/xu_csa22.pdf">
@@ -299,24 +455,22 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Automatic Cortical Cataract Classification Framework Based on AS-OCT Images</h6>
+                                    <h6><a href="assets/files/papers/xu_csa22.pdf" class="pub-title-link">Automatic Cortical Cataract Classification Framework Based on AS-OCT Images</a></h6>
                                     <p class="p-condense"><b>Gelei Xu*</b>, Xiaoqing Zhang*, Zunjie Xiao, Risa
                                         Higashita, Wan Chen, Jin Yuan, and Jiang Liu</p>
-                                    <p class="p-condense"><b>CSA 2022</b></p>
-                                    <p class="p-condense">
-                                        <a href="assets/files/papers/xu_csa22.pdf"><i class="fa-solid fa-file"></i> PDF</a>
-
-<!--                                        <a href="http://www.c-s-a.org.cn/csa/article/abstract/8867?st=search"><i-->
-<!--                                                class="fa-solid fa-link"></i> CSA Archive</a>-->
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>CSA 2022</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    -->
 
+                    <!--
                     <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="assets/files/papers/zhang_icme22.pdf">
@@ -325,25 +479,23 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Channel-Wise and Spatial Feature Recalibration Network for Nuclear Cataract
-                                        Classification</h6>
+                                    <h6><a href="assets/files/papers/zhang_icme22.pdf" class="pub-title-link">Channel-Wise and Spatial Feature Recalibration Network for Nuclear Cataract
+                                        Classification</a></h6>
                                     <p class="p-condense">Xiaoqing Zhang, <b>Gelei Xu</b>, Junyong Shen, Zunjie Xiao,
                                         Qiuyang Yan, Jin Yuan, Risa Higashita, Jiang Liu</p>
-                                    <p class="p-condense"><b>ICME 2022</b></p>
-                                    <p class="p-condense">
-                                        <a href="assets/files/papers/zhang_icme22.pdf"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-<!--                                        <a href="https://ieeexplore.ieee.org/abstract/document/9860008"><i-->
-<!--                                                class="fa-solid fa-link"></i> IEEE Xplore</a>-->
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>ICME 2022</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    -->
 
+                    <!--
                     <div class="blog classic-view py-md-2">
                         <div class="card card-body add-margin">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-3 py-md-2 add-padding">
                                     <figure class="hover-scale rounded">
                                         <a href="assets/files/papers/zhang_kbs22.pdf">
@@ -352,21 +504,18 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>CCA-Net: Clinical-awareness Attention Network for Nuclear Cataract
-                                        Classification in AS-OCT</h6>
+                                    <h6><a href="assets/files/papers/zhang_kbs22.pdf" class="pub-title-link">CCA-Net: Clinical-awareness Attention Network for Nuclear Cataract
+                                        Classification in AS-OCT</a></h6>
                                     <p class="p-condense">Xiaoqing Zhang, Zunjie Xiao, Lingxi Hu, <b>Gelei Xu</b>, Risa
                                         Higashita, Wan Chen, Jin Yuan, Jiang Liu</p>
-                                    <p class="p-condense"><b>KBS 2022</b></p>
-                                    <p class="p-condense">
-                                        <a href="assets/files/papers/zhang_kbs22.pdf"><i class="fa-solid fa-file"></i>
-                                            PDF</a>
-<!--                                        <a href="https://www.sciencedirect.com/science/article/pii/S0950705122005470"><i-->
-<!--                                                class="fa-solid fa-link"></i> ScienceDirect</a>-->
-                                    </p>
+                                    <div class="p-condense pub-meta">
+                                        <b>KBS 2022</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    -->
 
                 </div>
 
@@ -391,16 +540,12 @@
                     </div>
 
                     <div class="widget">
-                        <h4 class="widget-title mb-3">Attending</h4>
-                        <p class="p-small fade-text"><b>NDiSTEM 2025 (Columbus, OH)</b>
-                        <p class="p-small fade-text"><b>MICCAI 2025 (Daejeon, South Korea)</b>
-                        <p class="p-small fade-text"><b>DATE 2025 (Lyon, France)</b>
-                        <p class="p-small fade-text"><b>DAC 2024 (San Fransisco, CA)</b>
-                        <p class="p-small fade-text"><b>CHI 2024 (Honolulu, HI)</b>
-                    </div>
-
-                    <div class="widget">
                         <h4 class="widget-title mb-3">News</h4>
+                        <p class="p-small"><b>8/5/2026</b> Our ASR-LLM paper is accepted to Nature Communications</p>
+                        <p class="p-small"><b>6/8/2026</b> Started my internship at <a
+                            href="https://www.chip.org/internship/chip-ai-internship">BCH/HMS</a></p>
+                        <p class="p-small"><b>6/5/2026</b> Three papers accepted to <a
+                            href="https://conferences.miccai.org/2026/en/">MICCAI 2026</a></p>
                         <p class="p-small"><b>4/10/2026</b> Our survey paper on AI agents in healthcare is accepted to Journal of Biomedical Informatics</p>
                         <p class="p-small"><b>3/12/2026</b> Contributing as a workshop organizer for the MICCAI <a
                                 href="https://miccaimsb.github.io/emerge/index.html">EMERGE</a> and <a
@@ -448,6 +593,17 @@
                         </details>
                     </div>
 
+                    <div class="widget">
+                        <h4 class="widget-title mb-3">Attending</h4>
+                        <p class="p-small"><b>MICCAI 2026 (Strasbourg, France)</b>
+                        <p class="p-small fade-text"><b>CAIS 2026 (San Jose, CA)</b>
+                        <p class="p-small fade-text"><b>NDiSTEM 2025 (Columbus, OH)</b>
+                        <p class="p-small fade-text"><b>MICCAI 2025 (Daejeon, South Korea)</b>
+                        <p class="p-small fade-text"><b>DATE 2025 (Lyon, France)</b>
+                        <p class="p-small fade-text"><b>DAC 2024 (San Fransisco, CA)</b>
+                        <p class="p-small fade-text"><b>CHI 2024 (Honolulu, HI)</b>
+                    </div>
+
 
                     <div class="widget">
                         <h4 class="widget-title mb-3">Teaching</h4>
@@ -461,6 +617,9 @@
 
                     <div class="widget">
                         <h4 class="widget-title mb-3">Service</h4>
+                        <p class="p-small"><b>Organizer</b>: <a
+                            href="https://miccaimsb.github.io/emerge/index.html">EMERGE</a> and <a
+                            href="https://faimi-workshop.github.io/2026-miccai/">FAIMI</a> workshops at MICCAI 2026</p>
                         <p class="p-small"><b>Graduate Recruitment Ambassador</b>: Notre Dame College of Engineering,
                             2024-2025</p>
                         <p class="p-small"><b>Invited Panelist</b>: Undergraduate Outreach Program,
@@ -469,7 +628,12 @@
                             2025</p>
                         <p class="p-small"><b>Committee member</b>: CoE Grad Student Leadership Committee,
                             2024-2025</p>
-                        <p class="p-small"><b>Reviewer</b>: TOIS, TECS, RO-MAN, MICCAI, MIDL</p>
+                        <p class="p-small"><b>Reviewer</b></p>
+                        <div class="reviewer-list">
+                            <p class="p-small"><span class="reviewer-tag">Journal</span>JBHI 2026, CSUR 2026, BMJEBM 2026, TCPS 2025, TNSRE 2025, Scientific Reports 2025, TOIS 2024, TECS 2024, Scientific Reports 2024</p>
+                            <p class="p-small"><span class="reviewer-tag">Conference</span>AAAI 2026, MICCAI 2026, RO-MAN 2025, MIDL 2025, MICCAI 2025, RO-MAN 2024</p>
+                            <p class="p-small"><span class="reviewer-tag">Workshop</span>MICCAI EMERGE 2026, MICCAI FAIMI-BRIDGE-EPIMI 2026, MICCAI Educational Challenge 2026, KDD 2026 SciSoc Agents and LLMs, AAAI Fall Symposium Series 2024</p>
+                        </div>
                     </div>
                 </aside>
             </div>
@@ -478,7 +642,7 @@
 </div>
 
 <footer class="bg-light text-inverse">
-    <div class="container py-8 py-md-4">
+    <div class="container-fluid py-8 py-md-4">
         <div class="row gy-6 gy-lg-0">
             <p>© 2025 Gelei Xu. All rights reserved.</p>
         </div>
