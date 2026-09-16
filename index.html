@@ -77,13 +77,15 @@
             }
         }
 
-        /* Publication venue + links on one line instead of stacked rows */
+        /* Publication venue + links on one line instead of stacked rows.
+           Links sit right after the venue text (not flushed to the far
+           right), so e.g. a "Paper List" link reads as a continuation of
+           the venue line rather than a separate block. */
         .pub-meta {
             display: flex;
             flex-wrap: wrap;
             align-items: baseline;
-            justify-content: space-between;
-            column-gap: 16px;
+            column-gap: 10px;
             row-gap: 2px;
             margin-top: 2px;
         }
@@ -91,6 +93,7 @@
         .pub-meta .pub-links {
             display: inline-flex;
             flex-wrap: wrap;
+            align-items: center;
             gap: 4px 16px;
         }
 
@@ -98,10 +101,124 @@
             white-space: nowrap;
         }
 
+        /* One link plus its optional star badge, kept together as a unit
+           so the outer .pub-links gap only separates distinct links. */
+        .pub-link-group {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Live GitHub star-count badge (shields.io) next to a repo link,
+           sized and spaced to read as part of the same line as the
+           GitHub icon + link text rather than a separate little widget. */
+        .pub-github-stars {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
+        .pub-github-star-icon {
+            color: #b56f7e;
+            font-size: 0.68rem;
+        }
+
+        .pub-github-badge {
+            display: block;
+            height: 16px;
+            border-radius: 3px;
+        }
+
         /* Paper title color, for titles without a PDF link yet too, so
            every publication reads consistently. */
         .pub-title-link {
             color: #b56f7e;
+        }
+
+        /* Optional per-paper note (award, highlight, etc.) */
+        .pub-notes {
+            font-style: italic;
+            color: #8a919e;
+            margin-top: 2px;
+        }
+
+        /* Publications header: title on the left, Highlights/Full toggle
+           on the right, like a segmented control. */
+        .pub-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            width: 100%;
+        }
+
+        .pub-tab-toggle {
+            display: inline-flex;
+            background: #f1eef0;
+            border-radius: 999px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .pub-tab-btn {
+            border: none;
+            background: transparent;
+            color: #7a7f8a;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .pub-tab-btn:hover {
+            color: #484f5c;
+        }
+
+        .pub-tab-btn.active {
+            background: #ffffff;
+            color: #b56f7e;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .pub-tab-btn .pub-tab-count {
+            font-weight: 400;
+            opacity: 0.75;
+        }
+
+        .pub-tab-btn .fa-star {
+            font-size: 0.72rem;
+        }
+
+        /* Highlighted publication card: pink tint + star badge on the
+           thumbnail, visible in both the Highlights and Full tabs. */
+        .pub-highlight-card {
+            background: #fef9fa;
+            border: 1px solid rgba(181, 111, 126, 0.16);
+        }
+
+        .pub-highlight-card figure.hover-scale {
+            position: relative;
+        }
+
+        .pub-star-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 50%;
+            color: #b56f7e;
+            font-size: 0.66rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+            z-index: 2;
         }
 
         /* Sidebar body text (News, Teaching, Service, etc.) reads too light
@@ -146,7 +263,7 @@
 
         /* Job market callout between the intro and publications */
         .job-market-box {
-            background: #fbeef1;
+            background: #fdf4f6;
             border-left: 4px solid #b56f7e;
             border-radius: 6px;
             padding: 14px 18px;
@@ -215,7 +332,7 @@
                             </p>
                             <p>
                                 I develop machine learning algorithms that ensures reliable
-                                performance for specific patient populations through targeted data allocation, adaptation, and evaluation. My current work
+                                performance for specific patient populations through targeted data selection, model adaptation, and system evaluation. My current work
                                 extends these methods to continually learning clinical AI and healthcare agents.
                             </p>
                         </div>
@@ -242,276 +359,22 @@
                     <!-- ********************************* -->
 
                     <div id="publications" class="row py-8 py-md-4">
-                        <h2>Selected Publications</h2> <span>(* indicates equal contributions)</span>
-                    </div>
-
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/xu_nc26.pdf">
-                                            <img src="assets/images/thumbnails/xu_nc26.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/xu_nc26.pdf" class="pub-title-link">Assessing the Use of Automatic Speech Recognition and Large Language Models for Individuals
-                                        with Language Impairments</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu*</b>, Haoxinran Yu*, Lixuan Wei, Yuxuan Liu, Dancheng Liu, Chenhui Xu, Jiajie Li Ahmed Abbasi, Jinjun Xiong, Xiufan Yu, Zhi Zheng, Yiyu Shi, and Ruiyang Qin</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>Nature Communications</b>
-                                    </div>
-                                </div>
+                        <div class="pub-header">
+                            <div>
+                                <h2>Selected Publications</h2> <span>(* indicates equal contributions)</span>
+                            </div>
+                            <div class="pub-tab-toggle">
+                                <button type="button" class="pub-tab-btn active" data-pub-tab="highlight">
+                                    <i class="fa-solid fa-star"></i> Highlights <span class="pub-tab-count"></span>
+                                </button>
+                                <button type="button" class="pub-tab-btn" data-pub-tab="full">
+                                    Full <span class="pub-tab-count"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <img src="assets/images/thumbnails/xu_miccai26.png" alt=""/>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><span class="pub-title-link">Group-Conditioned Representation Modulation for Fair Skin Disease Diagnosis</span></h6>
-                                    <p class="p-condense"><b>Gelei Xu*</b>, Haoran Fan* and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>MICCAI 2026 (early accept, 9%)</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/xu_jbi26.pdf">
-                                            <img src="assets/images/thumbnails/xu_survey25.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/xu_jbi26.pdf" class="pub-title-link">A Comprehensive Survey of AI Agents in Healthcare</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu*</b>, Xueyang Li*, Yixiong Chen*, Yuying Duan*, Shuqing Wu*, Alexander Yu*, Ching-Hao Chiu*, Juntong Ni*, Ningzhi Tang, Toby Jia-Jun Li, Alan Yuille, Wei Jin, and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>Journal of Biomedical Informatics</b>
-                                        <span class="pub-links">
-                                            <a href="https://github.com/AgenticHealthAI/Awesome-AI-Agents-for-Healthcare" target="_blank"><i class="fa-brands fa-github"></i> Paper List</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/xu_media26.pdf">
-                                            <img src="assets/images/thumbnails/xu_media.jpg" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/xu_media26.pdf" class="pub-title-link">Rethinking Fairness in Medical Imaging: Maximizing Group-Specific Performance with Application to Skin Disease Diagnosis</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu</b>, Yuying Duan, Jun Xia, Ching-Hao Chiu, Michael Lemmon, Wei Jin, and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>Medical Image Analysis</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                     <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="https://arxiv.org/pdf/2506.17787">
-                                            <img src="assets/images/thumbnails/xu_miccai25.jpg" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="https://arxiv.org/pdf/2506.17787" class="pub-title-link">Incorporating Rather Than Eliminating: Achieving Fairness for Skin Disease Diagnosis Through Group-Specific Experts</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu</b>, Yuying Duan, Zheyuan Liu, Xueyang Li, Meng Jiang, Michael Lemmon, Wei jin, and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>MICCAI 2025 (early accept, 9%)</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="https://arxiv.org/pdf/2503.22762">
-                                            <img src="assets/images/thumbnails/duan_aistats.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="https://arxiv.org/pdf/2503.22762" class="pub-title-link">The Cost of Local and Global Fairness in Federated Learning</a></h6>
-                                    <p class="p-condense">Yuying Duan, <b>Gelei Xu</b>, Yiyu Shi, and Michael Lemmon</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>AISTATS 2025</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="https://arxiv.org/pdf/2405.16113">
-                                            <img src="assets/images/thumbnails/xu_date.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="https://arxiv.org/pdf/2405.16113" class="pub-title-link">Enabling Memory-Efficient On-Device Learning via Dataset Condensation</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu</b>, Ningzhi Tang, Jun Xia, Ruiyang Qin, Wei Jin, and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>DATE 2025</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="https://arxiv.org/pdf/2407.15252">
-                                            <img src="assets/images/thumbnails/xu_PhysioChi.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="https://arxiv.org/pdf/2407.15252" class="pub-title-link">An Adaptive System for Wearable Devices to Detect Stress Using Physiological Signals</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu</b>, Ruiyang Qin, Zhi Zheng, and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>PhysioCHI 2024</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/xu_arxiv23.pdf">
-                                            <img src="assets/images/thumbnails/xu_arxiv23.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/xu_arxiv23.pdf" class="pub-title-link">Achieving Fairness in Dermatological Disease Diagnosis through Automatic Weight
-                                        Adjusting Federated Learning and Personalization</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu</b>, Yawen Wu, Zhenge Jia, Jingtong Hu, and Yiyu Shi</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>MICCAI 2025 workshop</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!--
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/xu_csa22.pdf">
-                                            <img src="assets/images/thumbnails/xu_csa22.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/xu_csa22.pdf" class="pub-title-link">Automatic Cortical Cataract Classification Framework Based on AS-OCT Images</a></h6>
-                                    <p class="p-condense"><b>Gelei Xu*</b>, Xiaoqing Zhang*, Zunjie Xiao, Risa
-                                        Higashita, Wan Chen, Jin Yuan, and Jiang Liu</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>CSA 2022</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-
-                    <!--
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/zhang_icme22.pdf">
-                                            <img src="assets/images/thumbnails/zhang_icme22.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/zhang_icme22.pdf" class="pub-title-link">Channel-Wise and Spatial Feature Recalibration Network for Nuclear Cataract
-                                        Classification</a></h6>
-                                    <p class="p-condense">Xiaoqing Zhang, <b>Gelei Xu</b>, Junyong Shen, Zunjie Xiao,
-                                        Qiuyang Yan, Jin Yuan, Risa Higashita, Jiang Liu</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>ICME 2022</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-
-                    <!--
-                    <div class="blog classic-view py-md-2">
-                        <div class="card card-body add-margin">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 py-md-2 add-padding">
-                                    <figure class="hover-scale rounded">
-                                        <a href="assets/files/papers/zhang_kbs22.pdf">
-                                            <img src="assets/images/thumbnails/zhang_kbs22.png" alt=""/>
-                                        </a>
-                                    </figure>
-                                </div>
-                                <div class="col-md-9 add-padding">
-                                    <h6><a href="assets/files/papers/zhang_kbs22.pdf" class="pub-title-link">CCA-Net: Clinical-awareness Attention Network for Nuclear Cataract
-                                        Classification in AS-OCT</a></h6>
-                                    <p class="p-condense">Xiaoqing Zhang, Zunjie Xiao, Lingxi Hu, <b>Gelei Xu</b>, Risa
-                                        Higashita, Wan Chen, Jin Yuan, Jiang Liu</p>
-                                    <div class="p-condense pub-meta">
-                                        <b>KBS 2022</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
+                    <div id="publications-list"></div>
 
                 </div>
 
@@ -644,6 +507,9 @@
         </div>
     </div>
 </footer>
+
+<script src="./assets/data/publications.js"></script>
+<script src="./assets/js/render-publications.js"></script>
 </body>
 
 </html>
