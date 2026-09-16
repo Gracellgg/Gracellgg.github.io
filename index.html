@@ -98,14 +98,10 @@
             white-space: nowrap;
         }
 
-        /* Paper title links to the PDF, but looks like plain text until hovered */
+        /* Paper title color, for titles without a PDF link yet too, so
+           every publication reads consistently. */
         .pub-title-link {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .pub-title-link:hover {
-            text-decoration: underline;
+            color: #b56f7e;
         }
 
         /* Sidebar body text (News, Teaching, Service, etc.) reads too light
@@ -150,19 +146,19 @@
 
         /* Job market callout between the intro and publications */
         .job-market-box {
-            background: #fdf3e3;
-            border-left: 4px solid #ea9210;
+            background: #fbeef1;
+            border-left: 4px solid #b56f7e;
             border-radius: 6px;
             padding: 14px 18px;
         }
 
         .job-market-box p {
-            color: #6b4a12;
+            color: #7a3f49;
             margin-bottom: 0;
         }
 
         .job-market-box b {
-            color: #ea9210;
+            color: #b56f7e;
         }
     </style>
 </head>
@@ -280,7 +276,7 @@
                                     </figure>
                                 </div>
                                 <div class="col-md-9 add-padding">
-                                    <h6>Group-Conditioned Representation Modulation for Fair Skin Disease Diagnosis</h6>
+                                    <h6><span class="pub-title-link">Group-Conditioned Representation Modulation for Fair Skin Disease Diagnosis</span></h6>
                                     <p class="p-condense"><b>Gelei Xu*</b>, Haoran Fan* and Yiyu Shi</p>
                                     <div class="p-condense pub-meta">
                                         <b>MICCAI 2026 (early accept, 9%)</b>
