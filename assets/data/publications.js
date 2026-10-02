@@ -39,6 +39,14 @@
 
 const PUBLICATIONS = [
   {
+    title: "Patient-Conditioned Adaptive Offsets for Reliable Diagnosis across Subgroups",
+    authors: "<b>Gelei Xu</b>, Yuying Duan, Jun Xia, Ruining Deng, Wei Jin, and Yiyu Shi",
+    venue: "IEEE Transactions on Medical Imaging (IF=12.4)",
+    image: "assets/images/thumbnails/xu_tmi26.jpg",
+    pdf: null,
+    highlight: true,
+  },
+  {
     title: "Assessing the Use of Automatic Speech Recognition and Large Language Models for Individuals with Language Impairments",
     authors: "<b>Gelei Xu*</b>, Haoxinran Yu*, Lixuan Wei, Yuxuan Liu, Dancheng Liu, Chenhui Xu, Jiajie Li Ahmed Abbasi, Jinjun Xiong, Xiufan Yu, Zhi Zheng, Yiyu Shi, and Ruiyang Qin",
     venue: "Nature Communications (IF=18.1)",
@@ -51,7 +59,7 @@ const PUBLICATIONS = [
     authors: "<b>Gelei Xu*</b>, Haoran Fan* and Yiyu Shi",
     venue: "MICCAI 2026 (early accept, 9%)",
     image: "assets/images/thumbnails/xu_miccai26.png",
-    pdf: null,
+    pdf: "https://papers.miccai.org/miccai-2026/paper/1968_paper.pdf",
     highlight: true,
   },
   {
