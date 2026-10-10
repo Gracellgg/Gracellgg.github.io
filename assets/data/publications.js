@@ -43,7 +43,7 @@ const PUBLICATIONS = [
     authors: "<b>Gelei Xu</b>, Yuying Duan, Jun Xia, Ruining Deng, Wei Jin, and Yiyu Shi",
     venue: "IEEE Transactions on Medical Imaging (IF=12.4)",
     image: "assets/images/thumbnails/xu_tmi26.jpg",
-    pdf: null,
+    pdf: "https://ieeexplore.ieee.org/document/11721213",
     highlight: true,
   },
   {
